@@ -1,0 +1,154 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "سامانه ثبت آگهی",
+        "description": "مستندات API برای ثبت آگهی",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "سرور اصلی"
+        }
+    ],
+    "paths": {
+        "/api/v1/items": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "ثبت آگهی جدید",
+                "operationId": "dac4b59d4bc5571caaa792e2232b64bc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "owner_name",
+                                    "item_code",
+                                    "category",
+                                    "type",
+                                    "price_suggestion",
+                                    "location"
+                                ],
+                                "properties": {
+                                    "owner_name": {
+                                        "type": "string",
+                                        "example": "یونس عزیزی منش"
+                                    },
+                                    "item_code": {
+                                        "type": "string",
+                                        "example": "09927814012"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "enum": [
+                                            "telecom",
+                                            "id_number",
+                                            "digital_code"
+                                        ],
+                                        "example": "telecom"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "permanent",
+                                            "temporary"
+                                        ],
+                                        "example": "permanent"
+                                    },
+                                    "price_suggestion": {
+                                        "type": "number",
+                                        "example": 150000
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "تهران"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "آگهی با موفقیت ثبت شد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "آگهی با موفقیت ثبت شد"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "item_code": {
+                                                    "type": "string",
+                                                    "example": "09927814012"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "خطا در اعتبارسنجی",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "properties": {
+                                                "item_code": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "کد آیتم قبلاً ثبت شده است."
+                                                    }
+                                                },
+                                                "location": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "موقعیت مکانی فقط باید شامل حروف فارسی باشد."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Items",
+            "description": "Items"
+        }
+    ]
+}
