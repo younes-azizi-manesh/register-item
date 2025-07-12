@@ -26,4 +26,9 @@ class SimAd extends Model
         $flip = array_flip($this->enumTypeMap);
         $this->attributes['type'] = $flip[$value] ?? $value;
     }
+    // scope for filter by type.
+    public function scopeOfType($query, string $type)
+    {
+        return $query->where('type', $type);
+    }
 }
