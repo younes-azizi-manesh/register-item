@@ -1,29 +1,30 @@
 # Register Item API
 
-This project is a simple API for registering listings, built with Laravel.
+This project is a Laravel-based RESTful API for registering classified ads (آگهی), designed with clean architecture principles.
 
-## Features
+## 🚀 Features
 
-- **Repository and Service Layer Architecture:**  
-  Separates business logic from data access for better maintainability and testability.
+- **🧱 Repository and Service Layer Architecture**  
+  Implements a layered structure that separates business logic (services) from data access (repositories), making the application easier to maintain, test, and extend.
 
-- **API Documentation with Swagger (OpenAPI):**  
-  Uses the `L5-Swagger` package to generate complete and interactive API documentation.
+- **🧾 Enum Attribute Handling**  
+  The `type` field supports internal values (`for_sale`, `installment`, `loan`) and is automatically mapped to their Persian equivalents (e.g., `فروشی`, `قسطی`, `وام`) using accessors and mutators in the model.
 
-- **Request Validation with Form Requests:**  
-  Precise and customized input validation with Persian error messages.
+- **🔍 Query Scopes for Filtering**  
+  Custom Eloquent scopes like `scopeOfType()` allow filtering records based on the `type` field, making future filtering logic simple and expressive.
 
-- **Consistent JSON Responses:**  
-  Standardized response structure for success and error messages including `status`, `message`, and `data`.
+- **📦 Request Validation with Form Requests**  
+  Uses Laravel Form Request classes to validate incoming data, with fully customized **Persian** error messages.
 
-- **RESTful Design:**  
-  Follows REST principles for resource management (Items) and CRUD operations.
+- **📘 API Documentation (Swagger/OpenAPI)**  
+  Integrated with `L5-Swagger` to provide interactive and auto-generated documentation. Available at:  
+  [http://your-domain.com/api/documentation](http://your-domain.com/api/documentation)
 
-- **Extensible and Maintainable:**  
-  Thanks to layered architecture and comprehensive documentation, adding new features and fixing bugs is straightforward.
-
----
-
-## API Documentation
-
-You can access the full API documentation at `/api/documentation`.
+- **✅ Consistent JSON Responses**  
+  All responses follow a unified structure:
+  ```json
+  {
+    "status": "success" | "error",
+    "message": "Custom message",
+    "data": {...}
+  }

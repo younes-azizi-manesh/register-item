@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Http\Resources\SimAdsResource;
 use App\Repositories\Eloquent\SimAdRepository;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class SimAdService
 {
@@ -11,7 +13,12 @@ class SimAdService
 
     public function createSimAd(array $data)
     {
-        $simAd = $this->simRepository->create($data);
-        return new SimAdsResource($simAd);
+        try {
+            $simAd = $this->simRepository->create($data);
+            return new SimAdsResource($simAd);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            throw $e;
+        }
     }
 }
