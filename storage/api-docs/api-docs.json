@@ -143,12 +143,149 @@
                     }
                 }
             }
+        },
+        "/api/v1/sim-ads": {
+            "post": {
+                "tags": [
+                    "Sim Ads"
+                ],
+                "summary": "ثبت آگهی سیم‌کارت",
+                "operationId": "f841c74a5c9b750314f128d8bf235b2c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "owner_name",
+                                    "mobile_number",
+                                    "type",
+                                    "price_suggestion",
+                                    "city",
+                                    "is_special"
+                                ],
+                                "properties": {
+                                    "owner_name": {
+                                        "type": "string",
+                                        "example": "یونس عزیزی منش"
+                                    },
+                                    "mobile_number": {
+                                        "type": "string",
+                                        "example": "09927814012"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "for_sale",
+                                            "installment",
+                                            "loan"
+                                        ],
+                                        "example": "for_sale"
+                                    },
+                                    "price_suggestion": {
+                                        "type": "number",
+                                        "example": 150000
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "تهران"
+                                    },
+                                    "expire_at": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-12-31"
+                                    },
+                                    "is_special": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "آگهی با موفقیت ثبت شد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "آگهی با موفقیت ثبت شد"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "mobile_number": {
+                                                    "type": "string",
+                                                    "example": "09927814012"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "خطا در اعتبارسنجی",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "properties": {
+                                                "mobile_number": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "شماره موبایل قبلاً ثبت شده است."
+                                                    }
+                                                },
+                                                "price_suggestion": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "قیمت نباید کمتر از 10000 تومان باشد."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
             "name": "Items",
             "description": "Items"
+        },
+        {
+            "name": "Sim Ads",
+            "description": "Sim Ads"
         }
     ]
 }
